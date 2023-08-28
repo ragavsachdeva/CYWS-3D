@@ -1,0 +1,15 @@
+vit_feature_layers: [2, 11]
+encoder:
+  stride: 4
+  patch: 8
+  keep_cls_in_seq2spatial: False
+  output_dim: 768
+decoder:
+  downsampling_blocks: [[768, 512], [512, 512], [512, 512], [512, 512]]
+  encoder_channels: [0, 768, 512, 512, 512, 512]
+  decoder_channels: [256, 256, 128, 128, 64]
+batch_size: 8
+num_dataloader_workers: 8
+lr: 0.0001
+weight_decay: 0.0005
+imagenet_normalisation: True

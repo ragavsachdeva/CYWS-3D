@@ -1,0 +1,37 @@
+batch:
+  # 2x RGB images only (3D scene)
+  - image1: "demo_data/ship_0.jpg"
+    image2: "demo_data/ship_2.jpg"
+    registration_strategy: "3d"
+  # 2x RGB images, with GT depth (3D scene)
+  - image1: "demo_data/ship_0.jpg"
+    image2: "demo_data/ship_2.jpg"
+    depth1: "demo_data/depth_ship_0.png"
+    depth2: "demo_data/depth_ship_2.png"
+    registration_strategy: "3d"
+  # 2x RGB images, with GT depth and camera parameters (3D scene)
+  - image1: "demo_data/24478_831_2_0.png"
+    image2: "demo_data/24478_831_2_1.png"
+    depth1: "demo_data/depth_24478_831_2_0.tiff"
+    depth2: "demo_data/depth_24478_831_2_1.tiff"
+    intrinsics1: "demo_data/intrinsics1.npy" 
+    intrinsics2: "demo_data/intrinsics2.npy" 
+    position1: "demo_data/position1.npy"
+    position2: "demo_data/position2.npy"
+    rotation1: "demo_data/rotation1.npy"
+    rotation2: "demo_data/rotation2.npy"
+    registration_strategy: "3d"
+  # 2x RGB images only (2D scene)
+  - image1: "demo_data/coco_aff1.png"
+    image2: "demo_data/coco_aff2.png"
+    registration_strategy: "2d"
+  # 2x RGB images with GT transformation (2D scene)
+  - image1: "demo_data/coco_aff1.png"
+    image2: "demo_data/coco_aff2.png"
+    transfm2d_1_to_2: "demo_data/transfm2d_1_to_2.npy"
+    transfm2d_2_to_1: "demo_data/transfm2d_2_to_1.npy"
+    registration_strategy: "2d"
+  # 2x RGB images (identity transformation)
+  - image1: "demo_data/4842.png"
+    image2: "demo_data/4842_mask3.png"
+    registration_strategy: "identity"

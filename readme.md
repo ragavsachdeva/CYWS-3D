@@ -6,24 +6,46 @@ In Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV
 
 [Ragav Sachdeva](https://ragavsachdeva.github.io/), [Andrew Zisserman](https://scholar.google.com/citations?hl=en&user=UZ5wscMAAAAJ)
 
-![results](images/pred.gif)
+![results](demo_data/pred.gif)
 
 ## Installation
 
-TODO
+**Clone the repository**
+
+```
+git clone --recursive git@github.com:ragavsachdeva/CYWS-3D.git
+```
+
+**Install depedencies**
+
+```
+conda create -n cyws3d python=3.9 -y
+conda activate cyws3d
+conda install -c pytorch pytorch=1.10.1 torchvision=0.11.2 cudatoolkit=11.3.1 -y
+conda install -c fvcore -c iopath -c conda-forge fvcore iopath
+conda install pytorch3d==0.7.1 -c pytorch3d --freeze-installed
+pip install mmcv-full==1.7.0 -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.10/index.html
+pip install timm==0.6.12 jsonargparse matplotlib imageio loguru einops wandb easydict kornia==0.6.8 scipy etils mmdet==2.25.3
+pip install segmentation-models-pytorch@git+https://github.com/ragavsachdeva/segmentation_models.pytorch.git@2cde92e776b0a074d5e2f4f6a50c68754f948015
+```
 
 
 ## Datasets
 
 TODO
 
-## Example Usage
-
-TODO
 
 ## Pre-trained model
 
-TODO
+[cyws-3d.ckpt](https://thor.robots.ox.ac.uk/datasets/cyws/cyws-3d.ckpt.gz)
+
+## Example Usage
+
+Please try running:
+
+`python inference.py --load_weights_from ./cyws-3d.ckpt`
+
+This should perform a batched inference on a set of example image pairs under various settings (RGB images only, with depth but no camera parameters, with camera parameters, assuming 2D scene, assuming fixed camera etc.).
 
 ## Citation
 
