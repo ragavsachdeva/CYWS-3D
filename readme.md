@@ -45,12 +45,7 @@ Please try running:
 
 `python inference.py --load_weights_from ./cyws-3d.ckpt`
 
-This should perform a batched inference on a set of example image pairs under various settings:
-- images only, 
-- images + depth, 
-- images + depth + camera parameters,
-- assuming 2D scene, 
-- assuming fixed camera, etc.
+This should perform a batched inference on a set of example image pairs under various settings (see [this file](demo_data/input_metadata.yml)).
 
 ## Citation
 
