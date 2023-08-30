@@ -37,7 +37,10 @@ TODO
 
 ## Pre-trained model
 
-[cyws-3d.ckpt](https://thor.robots.ox.ac.uk/cyws-3d/cyws-3d.ckpt.gz)
+```
+wget https://thor.robots.ox.ac.uk/cyws-3d/cyws-3d.ckpt.gz
+gzip -d cyws-3d.ckpt.gz
+```
 
 ## Example Usage
 
