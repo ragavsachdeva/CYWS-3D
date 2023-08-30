@@ -37,7 +37,7 @@ TODO
 
 ## Pre-trained model
 
-[cyws-3d.ckpt](https://thor.robots.ox.ac.uk/datasets/cyws/cyws-3d.ckpt.gz)
+[cyws-3d.ckpt](https://thor.robots.ox.ac.uk/cyws-3d/cyws-3d.ckpt.gz)
 
 ## Example Usage
 
