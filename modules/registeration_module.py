@@ -26,32 +26,33 @@ class FeatureRegisterationModule(nn.Module):
         K_inv_2 = torch.zeros(len(batch["intrinsics2"]), 3, 3).type_as(features2)
         Rt_1_to_2 = torch.zeros(len(batch["intrinsics1"]), 4, 4).type_as(features1)
         Rt_2_to_1 = torch.zeros(len(batch["intrinsics2"]), 4, 4).type_as(features2)
-        
-        _K_inv_1, _K_inv_2, _Rt_1_to_2, _Rt_2_to_1 = estimate_Rt_using_camera_parameters(
-            torch.stack([batch["intrinsics1"][i] for i, x in enumerate(using_camera_parameters) if x]),
-            torch.stack([batch["intrinsics2"][i] for i, x in enumerate(using_camera_parameters) if x]),
-            torch.stack([batch["rotation1"][i] for i, x in enumerate(using_camera_parameters) if x]),
-            torch.stack([batch["rotation2"][i] for i, x in enumerate(using_camera_parameters) if x]),
-            torch.stack([batch["position1"][i] for i, x in enumerate(using_camera_parameters) if x]),
-            torch.stack([batch["position2"][i] for i, x in enumerate(using_camera_parameters) if x]),
-        )
-        K_inv_1[using_camera_parameters] = _K_inv_1
-        K_inv_2[using_camera_parameters] = _K_inv_2
-        Rt_1_to_2[using_camera_parameters] = _Rt_1_to_2
-        Rt_2_to_1[using_camera_parameters] = _Rt_2_to_1
+        if sum(using_camera_parameters) > 0:
+            _K_inv_1, _K_inv_2, _Rt_1_to_2, _Rt_2_to_1 = estimate_Rt_using_camera_parameters(
+                torch.stack([batch["intrinsics1"][i] for i, x in enumerate(using_camera_parameters) if x]),
+                torch.stack([batch["intrinsics2"][i] for i, x in enumerate(using_camera_parameters) if x]),
+                torch.stack([batch["rotation1"][i] for i, x in enumerate(using_camera_parameters) if x]),
+                torch.stack([batch["rotation2"][i] for i, x in enumerate(using_camera_parameters) if x]),
+                torch.stack([batch["position1"][i] for i, x in enumerate(using_camera_parameters) if x]),
+                torch.stack([batch["position2"][i] for i, x in enumerate(using_camera_parameters) if x]),
+            )
+            K_inv_1[using_camera_parameters] = _K_inv_1
+            K_inv_2[using_camera_parameters] = _K_inv_2
+            Rt_1_to_2[using_camera_parameters] = _Rt_1_to_2
+            Rt_2_to_1[using_camera_parameters] = _Rt_2_to_1
 
         using_points = [x is None for x in batch["intrinsics1"]]
-        _K_inv_1, _K_inv_2, _Rt_1_to_2, _Rt_2_to_1 = estimate_Rt_using_points(
-            [batch["points1"][i] for i, x in enumerate(using_points) if x],
-            [batch["points2"][i] for i, x in enumerate(using_points) if x],
-            batch["depth1"][using_points],
-            batch["depth2"][using_points],
-        )
+        if sum(using_points) > 0:
+            _K_inv_1, _K_inv_2, _Rt_1_to_2, _Rt_2_to_1 = estimate_Rt_using_points(
+                [batch["points1"][i] for i, x in enumerate(using_points) if x],
+                [batch["points2"][i] for i, x in enumerate(using_points) if x],
+                batch["depth1"][using_points],
+                batch["depth2"][using_points],
+            )
 
-        K_inv_1[using_points] = _K_inv_1
-        K_inv_2[using_points] = _K_inv_2
-        Rt_1_to_2[using_points] = _Rt_1_to_2
-        Rt_2_to_1[using_points] = _Rt_2_to_1
+            K_inv_1[using_points] = _K_inv_1
+            K_inv_2[using_points] = _K_inv_2
+            Rt_1_to_2[using_points] = _Rt_1_to_2
+            Rt_2_to_1[using_points] = _Rt_2_to_1
 
         nearest_resize = K.augmentation.Resize(features1.shape[-2:], resample=0, align_corners=None, keepdim=True)
         depth1 = nearest_resize(batch["depth1"])
