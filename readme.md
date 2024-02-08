@@ -33,6 +33,7 @@ pip install segmentation-models-pytorch@git+https://github.com/ragavsachdeva/seg
 ## Datasets
 
 KC-3D: `wget https://thor.robots.ox.ac.uk/cyws-3d/kc3d.tar`
+
 RC-3D: `wget https://thor.robots.ox.ac.uk/cyws-3d/rc3d.tar`
 
 
